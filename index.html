@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>교산 신도시 브리핑</title>
+<meta name="description" content="하남 교산 3기 신도시 개발·분양 기사와 블록별 청약 일정을 매일 모아 보여주는 브리핑.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f3f5f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111613" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="교산 브리핑">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Hanam Gyosan · 3기 신도시</div>
+    <h1>하남 교산 신도시 개발·분양 뉴스</h1>
+    <div class="status" id="status"><span>기사를 불러오는 중…</span></div>
+    <div class="refresh-row" id="refresh-row"><button class="refresh" id="refresh" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>새 기사 확인</button><span class="refresh-msg" id="refresh-msg" role="status" aria-live="polite"></span></div>
+  </header>
+
+  <section class="facts" aria-label="지구 개요">
+    <div class="fact"><div class="k">면적</div><div class="v">약 631만㎡</div><div class="n">하남시 천현·교산·춘궁동 일대</div></div>
+    <div class="fact"><div class="k">주택 공급 계획</div><div class="v">3만 6,697가구</div><div class="n">하남일보 보도 기준</div></div>
+    <div class="fact"><div class="k">첫 입주</div><div class="v">2029년 6월</div><div class="n">A2블록 공공분양</div></div>
+    <div class="fact"><div class="k">송파하남선</div><div class="v">2032년 이후</div><div class="n">개통 전망</div></div>
+  </section>
+
+  <div class="bar" role="toolbar" aria-label="분류 필터">
+    <button class="chip" data-f="전체" aria-pressed="true" id="f-all">전체</button>
+    <button class="chip fav" data-f="관심" aria-pressed="false" id="f-fav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>관심기사<span class="cnt" id="fav-cnt">0</span></button>
+    <button class="chip" data-f="분양" aria-pressed="false" id="f-sale">분양</button>
+    <button class="chip" data-f="개발" aria-pressed="false" id="f-dev">개발</button>
+    <button class="chip" data-f="교통" aria-pressed="false" id="f-traffic">교통</button>
+    <button class="chip" data-f="정책" aria-pressed="false" id="f-policy">정책</button>
+    <input class="search" id="q" type="search" placeholder="제목·요약 검색 (예: A2, 청약)" aria-label="기사 검색">
+  </div>
+
+  <main id="list"><div class="empty">기사 목록을 불러오는 중입니다. 매일 오후 6시에 새 기사가 추가됩니다.</div></main>
+
+  <section class="blocks" aria-labelledby="blocks-h">
+    <div class="sec-head">
+      <div class="eyebrow">청약 현황표</div>
+      <h2 id="blocks-h">블록별 공급·청약 일정</h2>
+      <p>기사에서 확인된 블록별 공급 현황을 누적해 둔 표입니다. 새 기사가 들어오면 함께 갱신됩니다.</p>
+    </div>
+    <div class="bsum" id="bsum"></div>
+    <div class="tbl-wrap">
+      <table class="btbl">
+        <thead><tr><th scope="col">블록</th><th scope="col">유형</th><th scope="col" class="num">가구수</th><th scope="col">상태</th><th scope="col">청약 시기</th><th scope="col">비고 · 출처</th></tr></thead>
+        <tbody id="btbody"><tr><td colspan="6" class="bempty">블록 정보를 불러오는 중입니다.</td></tr></tbody>
+      </table>
+    </div>
+    <p class="bnote">상태 기준: <b>기공급</b> 청약 접수까지 끝남 · <b>청약 진행</b> 입주자모집공고 후 접수 전후 · <b>예정</b> 보도로 시기가 나온 블록 · <b>미정</b> 공식 일정 없음. 예정 시기는 보도 기준이라 바뀔 수 있습니다.<br><b>제때 청약 가능성</b>은 보도된 시기 안에 입주자모집공고가 나올 가능성을 Claude가 추정한 값입니다. 근거는 최근 후속 보도 시점, 사업승인·착공·공고 예고 같은 진행 신호, 남은 기간, 교산의 지연 이력입니다. 새 기사가 들어올 때마다 다시 판단합니다. 공식 예측이 아닌 참고용입니다. 높음 70% 이상 · 보통 40~69% · 낮음 15~39% · 매우 낮음 15% 미만.</p>
+  </section>
+
+  <details class="a2hs" id="a2hs">
+    <summary>휴대폰에 앱으로 설치하기</summary>
+    <div class="a2hs-body">
+      <div><b>아이폰 (Safari)</b><ol><li>이 페이지를 Safari에서 엽니다.</li><li>아래쪽 공유 버튼(네모에 위쪽 화살표)을 누릅니다.</li><li>‘홈 화면에 추가’ → ‘추가’를 누릅니다.</li></ol></div>
+      <div><b>안드로이드 (Chrome)</b><ol><li>이 페이지를 Chrome에서 엽니다.</li><li>화면 아래 ‘앱 설치’ 안내가 뜨면 누르거나, ⋮ 메뉴에서 ‘앱 설치’ 또는 ‘홈 화면에 추가’를 누릅니다.</li></ol></div>
+      <p>설치하면 주소창 없이 앱처럼 열리고, 인터넷이 끊겨도 마지막으로 본 기사를 볼 수 있습니다. 카카오톡 등 앱 안에서 열었다면 먼저 ‘다른 브라우저로 열기’를 누르세요.</p>
+    </div>
+  </details>
+
+  <footer>
+    <span>매일 오후 6시(KST) 새 기사를 찾아 추가합니다. 화면 내용은 마지막 수집 시점 기준입니다.</span>
+    <span>요약은 자동 작성된 것이므로 청약 일정·자격은 LH 청약플러스(apply.lh.or.kr)와 청약홈 공고로 꼭 확인하세요.</span>
+  </footer>
+</div>
+<script>
+(function(){
+  var all=[], meta=null, blocks=null, filter="전체", q="", favs={}, fresh={};
+  var STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>';
+  try{JSON.parse(localStorage.getItem("gyosan-favs")||"[]").forEach(function(id){favs[id]=true})}catch(e){}
+  function saveFavs(){try{localStorage.setItem("gyosan-favs",JSON.stringify(Object.keys(favs)))}catch(e){}}
+  var list=document.getElementById("list"), status=document.getElementById("status");
+  var favCnt=document.getElementById("fav-cnt");
+  var refreshBtn=document.getElementById("refresh"), refreshMsg=document.getElementById("refresh-msg");
+  function setMsg(t,kind){refreshMsg.textContent=t||"";refreshMsg.dataset.kind=kind||""}
+  function chanceLabel(c){return c>=70?["높음","hi"]:c>=40?["보통","mid"]:c>=15?["낮음","lo"]:["매우 낮음","vlo"]}
+  function chanceHtml(r,s){
+    if(s!=="예정"||r.chance==null||isNaN(+r.chance))return "";
+    var c=Math.max(0,Math.min(100,Math.round(+r.chance))), L=chanceLabel(c);
+    return '<div class="chance" data-l="'+L[1]+'"><div class="chance-top"><span>제때 청약 가능성</span><b>'+c+'% · '+L[0]+'</b></div>'+
+      '<div class="meter" role="img" aria-label="가능성 '+c+'%"><i style="width:'+Math.max(c,2)+'%"></i></div>'+
+      (r.chanceReason?'<p>'+esc(r.chanceReason)+'</p>':'')+
+      '<span class="chance-at">'+(r.lastFollowUp?'최근 후속 보도 '+esc(r.lastFollowUp.slice(2).replace(/-/g,"."))+' · ':'')+(r.chanceAt?'판단 '+esc(r.chanceAt.slice(2).replace(/-/g,".")):'')+'</span></div>';
+  }
+  function renderBlocks(){
+    var tb=document.getElementById("btbody"), sum=document.getElementById("bsum");
+    if(!blocks){return}
+    if(!blocks.length){tb.innerHTML='<tr><td colspan="6" class="bempty">아직 정리된 블록이 없습니다. 기사에서 블록 정보가 확인되면 여기에 추가됩니다.</td></tr>';sum.innerHTML="";return}
+    var rows=blocks.slice().sort(function(a,b){return (a.sortKey||"9999").localeCompare(b.sortKey||"9999")||(a.block||"").localeCompare(b.block||"")});
+    var agg={};
+    rows.forEach(function(r){var s=r.status||"미정";agg[s]=agg[s]||{n:0,u:0};agg[s].n++;agg[s].u+=(+r.units||0)});
+    sum.innerHTML=["기공급","청약 진행","예정","미정"].filter(function(s){return agg[s]}).map(function(s){return '<span><span class="pill" data-s="'+s+'">'+s+'</span> <b>'+agg[s].n+'</b>개 블록'+(agg[s].u?' · <b>'+agg[s].u.toLocaleString("ko-KR")+'</b>가구':'')+'</span>'}).join("");
+    tb.innerHTML=rows.map(function(r){
+      var s=r.status||"미정";
+      var srcs=(Array.isArray(r.sources)?r.sources:[]).map(function(x){return '<a href="'+esc(safeUrl(x.url))+'" target="_blank" rel="noopener" title="'+esc(x.title||"")+'">'+esc(x.source||"출처")+(x.date?' '+esc(x.date.slice(2).replace(/-/g,".")):'')+'</a>'}).join("");
+      return '<tr class="'+(s==="기공급"?"done":"")+'"><td><span class="bcode">'+esc(r.block)+'</span>'+(r.name?'<span class="bname">'+esc(r.name)+'</span>':'')+'</td>'+
+        '<td>'+esc(r.type||"")+(r.size?'<span class="bname">'+esc(r.size)+'</span>':'')+'</td>'+
+        '<td class="num">'+(r.units?(+r.units).toLocaleString("ko-KR"):"–")+'</td>'+
+        '<td><span class="pill" data-s="'+esc(s)+'">'+esc(s)+'</span></td>'+
+        '<td class="when">'+esc(r.period||"미정")+(r.periodNote?'<small>'+esc(r.periodNote)+'</small>':'')+chanceHtml(r,s)+'</td>'+
+        '<td class="bmeta">'+(r.note?'<p>'+esc(r.note)+'</p>':'')+(srcs?'<div class="srcs">'+srcs+'</div>':'')+'</td></tr>';
+    }).join("");
+  }
+  list.addEventListener("click",function(e){
+    var b=e.target.closest(".star");if(!b)return;
+    var id=b.dataset.id;if(favs[id])delete favs[id];else favs[id]=true;
+    saveFavs();render();
+  });
+  function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function safeUrl(u){return /^https?:\/\//i.test(u||"")?u:"#"}
+  function fmtDay(d){if(!d)return "";var p=d.split("-");return p.length===3?(+p[1])+"월 "+(+p[2])+"일":d}
+  try{var saved=localStorage.getItem("gyosan-filter");if(saved)filter=saved}catch(e){}
+  function syncChips(){document.querySelectorAll(".chip").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.f===filter?"true":"false")})}
+  syncChips();
+  document.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){filter=b.dataset.f;try{localStorage.setItem("gyosan-filter",filter)}catch(e){}syncChips();render()})});
+  document.getElementById("q").addEventListener("input",function(e){q=e.target.value.trim().toLowerCase();render()});
+
+  function renderStatus(){
+    var latest=all.reduce(function(m,a){return a.batch>m?a.batch:m},"");
+    var parts=["총 <b>"+all.length+"</b>건"];
+    if(meta&&meta.lastRun)parts.push("마지막 수집 <b>"+esc(meta.lastRun)+"</b>"+(meta.lastCount!=null?" · 신규 "+esc(meta.lastCount)+"건":""));
+    else if(latest)parts.push("마지막 수집 <b>"+esc(latest)+"</b>");
+    parts.push("다음 수집 매일 18:00");
+    status.innerHTML=parts.map(function(p){return "<span>"+p+"</span>"}).join("");
+  }
+  function render(){
+    renderStatus();
+    favCnt.textContent=all.filter(function(a){return favs[a.id]}).length;
+    var latest=all.reduce(function(m,a){return a.batch>m?a.batch:m},"");
+    var rows=all.filter(function(a){
+      if(filter==="관심"){if(!favs[a.id])return false}
+      else if(filter!=="전체"&&a.category!==filter)return false;
+      if(q&&((a.title||"")+" "+(a.summary||"")+" "+(a.source||"")).toLowerCase().indexOf(q)<0)return false;
+      return true;
+    });
+    if(!all.length){list.innerHTML='<div class="empty">아직 기사가 없습니다. 매일 오후 6시에 새 기사가 추가됩니다.</div>';return}
+    if(!rows.length){list.innerHTML=filter==="관심"&&!q?'<div class="empty">아직 관심기사가 없습니다. 기사 오른쪽의 별을 누르면 여기에 모입니다.</div>':'<div class="empty">조건에 맞는 기사가 없습니다. 필터나 검색어를 바꿔 보세요.</div>';return}
+    rows.sort(function(a,b){return (b.batch||"").localeCompare(a.batch||"")||(b.published||"").localeCompare(a.published||"")});
+    var groups={},order=[];
+    rows.forEach(function(a){var k=a.batch||"";if(!groups[k]){groups[k]=[];order.push(k)}groups[k].push(a)});
+    list.innerHTML=order.map(function(k){
+      return '<section class="group"><h2>'+esc(fmtDay(k))+' 수집'+(k===latest?' <span class="newtag">최신</span>':'')+'</h2>'+
+        groups[k].map(function(a){
+          var on=!!favs[a.id];
+          return '<article class="item"><div class="meta">'+(fresh[a.id]?'<span class="freshtag">새 기사</span>':'')+'<span class="cat" data-c="'+esc(a.category)+'">'+esc(a.category||"기타")+'</span><span>'+esc(a.source)+'</span>'+
+            '<span class="date">'+(a.published?esc(a.published.replace(/-/g,".")):"날짜 미상")+'</span></div>'+
+            '<button class="star" data-id="'+esc(a.id)+'" aria-pressed="'+on+'" aria-label="'+(on?"관심기사에서 빼기":"관심기사로 저장")+'" title="'+(on?"관심기사에서 빼기":"관심기사로 저장")+'">'+STAR+'</button>'+
+            '<a href="'+esc(safeUrl(a.url))+'" target="_blank" rel="noopener">'+esc(a.title)+'</a>'+
+            (a.summary?'<p>'+esc(a.summary)+'</p>':'')+'</article>';
+        }).join("")+'</section>';
+    }).join("");
+  }
+
+  function apply(d,markNew){
+    if(!d||!Array.isArray(d.articles))return 0;
+    var n=0;
+    if(markNew){var known={};all.forEach(function(a){known[a.id]=true});d.articles.forEach(function(a){if(!known[a.id]){fresh[a.id]=true;n++}})}
+    all=d.articles;meta=d.meta||null;blocks=Array.isArray(d.blocks)?d.blocks:[];
+    render();renderBlocks();return n;
+  }
+  async function load(markNew){
+    var r=await fetch("data.json?t="+Date.now(),{cache:"no-store"});
+    if(!r.ok)throw new Error("http "+r.status);
+    return apply(await r.json(),markNew);
+  }
+  load(false).catch(function(){
+    return fetch("data.json").then(function(r){return r.json()}).then(function(d){apply(d,false);setMsg("인터넷 연결이 없어 마지막으로 받은 기사를 보여 줍니다.","warn")});
+  }).catch(function(){list.innerHTML='<div class="empty">기사를 불러오지 못했습니다. 인터넷 연결을 확인한 뒤 다시 열어 주세요.</div>'});
+  refreshBtn.addEventListener("click",function(){
+    refreshBtn.disabled=true;setMsg("새 기사를 확인하는 중…","busy");
+    load(true).then(function(n){setMsg(n?"새 기사 "+n+"건이 추가됐습니다.":"새로 올라온 기사가 없습니다. 새 기사는 매일 오후 6시에 추가됩니다.","done")})
+      .catch(function(){setMsg("확인하지 못했습니다. 인터넷 연결을 확인해 주세요.","warn")})
+      .then(function(){refreshBtn.disabled=false});
+  });
+  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")load(true).catch(function(){})});
+  if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+})();
+</script>
+</body>
+</html>
