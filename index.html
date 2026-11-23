@@ -144,6 +144,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .a2hs-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 24px;padding:0 16px 14px;font-size:13.5px}
 .a2hs-body ol{margin:4px 0 0;padding-left:20px;color:var(--muted)}
 .a2hs-body p{grid-column:1/-1;margin:0;font-size:12.5px;color:var(--muted)}
+.more{display:block;width:100%;margin-top:14px;font:inherit;font-size:14px;font-weight:600;padding:11px 14px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.more:hover{border-color:var(--accent);color:var(--accent)}
+.more:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .empty{padding:40px 0;color:var(--muted);text-align:center}
 footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
 </style>
@@ -154,7 +157,7 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
     <div class="eyebrow">Hanam Gyosan · 3기 신도시</div>
     <h1>하남 교산 신도시 개발·분양 뉴스</h1>
     <div class="status" id="status"><span>기사를 불러오는 중…</span></div>
-    <div class="refresh-row" id="refresh-row"><button class="refresh" id="refresh" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>새 기사 확인</button><a class="refresh ghost" id="run-now" hidden href="https://claude.ai/artifact/FfEJ7HyTa4q3Wpj3CnBdov#run" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>지금 새로 수집</a><span class="refresh-msg" id="refresh-msg" role="status" aria-live="polite"></span></div>
+    <div class="refresh-row" id="refresh-row"><button class="refresh" id="refresh" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>새 기사 확인</button><span class="refresh-msg" id="refresh-msg" role="status" aria-live="polite"></span></div>
   </header>
 
   <section class="facts" aria-label="지구 개요">
@@ -245,18 +248,22 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
     }).join("");
   }
   list.addEventListener("click",function(e){
+    var mb=e.target.closest("#more-btn");
+    if(mb){expanded=!expanded;render();if(!expanded)list.scrollIntoView({block:"start"});return}
     var b=e.target.closest(".star");if(!b)return;
     var id=b.dataset.id;if(favs[id])delete favs[id];else favs[id]=true;
     saveFavs();render();
   });
   function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
   function safeUrl(u){return /^https?:\/\//i.test(u||"")?u:"#"}
+  var LIMIT=5, expanded=false;
+  function fmtPub(d){var p=d.split("-");if(p.length!==3)return d;var y=+p[0],now=new Date().getFullYear();return (y!==now?y+"년 ":"")+(+p[1])+"월 "+(+p[2])+"일"}
   function fmtDay(d){if(!d)return "";var p=d.split("-");return p.length===3?(+p[1])+"월 "+(+p[2])+"일":d}
   try{var saved=localStorage.getItem("gyosan-filter");if(saved)filter=saved}catch(e){}
   function syncChips(){document.querySelectorAll(".chip").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.f===filter?"true":"false")})}
   syncChips();
-  document.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){filter=b.dataset.f;try{localStorage.setItem("gyosan-filter",filter)}catch(e){}syncChips();render()})});
-  document.getElementById("q").addEventListener("input",function(e){q=e.target.value.trim().toLowerCase();render()});
+  document.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){filter=b.dataset.f;try{localStorage.setItem("gyosan-filter",filter)}catch(e){}syncChips();expanded=false;render()})});
+  document.getElementById("q").addEventListener("input",function(e){q=e.target.value.trim().toLowerCase();expanded=false;render()});
 
   function renderStatus(){
     var latest=all.reduce(function(m,a){return a.batch>m?a.batch:m},"");
@@ -278,11 +285,13 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
     });
     if(!all.length){list.innerHTML='<div class="empty">아직 기사가 없습니다. 매일 오후 6시에 새 기사가 추가됩니다.</div>';return}
     if(!rows.length){list.innerHTML=filter==="관심"&&!q?'<div class="empty">아직 관심기사가 없습니다. 기사 오른쪽의 별을 누르면 여기에 모입니다.</div>':'<div class="empty">조건에 맞는 기사가 없습니다. 필터나 검색어를 바꿔 보세요.</div>';return}
-    rows.sort(function(a,b){return (b.batch||"").localeCompare(a.batch||"")||(b.published||"").localeCompare(a.published||"")});
+    rows.sort(function(a,b){return (b.published||"").localeCompare(a.published||"")||(b.addedAt||"").localeCompare(a.addedAt||"")});
+    var total=rows.length, shown=expanded?rows:rows.slice(0,LIMIT);
     var groups={},order=[];
-    rows.forEach(function(a){var k=a.batch||"";if(!groups[k]){groups[k]=[];order.push(k)}groups[k].push(a)});
+    shown.forEach(function(a){var k=a.published||"";if(!groups[k]){groups[k]=[];order.push(k)}groups[k].push(a)});
+    var newest=rows[0]&&rows[0].published;
     list.innerHTML=order.map(function(k){
-      return '<section class="group"><h2>'+esc(fmtDay(k))+' 수집'+(k===latest?' <span class="newtag">최신</span>':'')+'</h2>'+
+      return '<section class="group"><h2>'+(k?esc(fmtPub(k)):"날짜 미상")+(k&&k===newest?' <span class="newtag">최신</span>':'')+'</h2>'+
         groups[k].map(function(a){
           var on=!!favs[a.id];
           return '<article class="item"><div class="meta">'+(fresh[a.id]?'<span class="freshtag">새 기사</span>':'')+'<span class="cat" data-c="'+esc(a.category)+'">'+esc(a.category||"기타")+'</span><span>'+esc(a.source)+'</span>'+
@@ -291,7 +300,7 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
             '<a href="'+esc(safeUrl(a.url))+'" target="_blank" rel="noopener">'+esc(a.title)+'</a>'+
             (a.summary?'<p>'+esc(a.summary)+'</p>':'')+'</article>';
         }).join("")+'</section>';
-    }).join("");
+    }).join("")+(total>LIMIT?'<button class="more" type="button" id="more-btn" aria-expanded="'+expanded+'">'+(expanded?"접기":"더보기 · "+(total-LIMIT)+"건 더")+'</button>':'');
   }
 
   function apply(d,markNew){
@@ -309,49 +318,60 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
   load(false).catch(function(){
     return fetch("data.json").then(function(r){return r.json()}).then(function(d){apply(d,false);setMsg("인터넷 연결이 없어 마지막으로 받은 기사를 보여 줍니다.","warn")});
   }).catch(function(){list.innerHTML='<div class="empty">기사를 불러오지 못했습니다. 인터넷 연결을 확인한 뒤 다시 열어 주세요.</div>'});
-  refreshBtn.addEventListener("click",function(){
-    refreshBtn.disabled=true;setMsg("새 기사를 확인하는 중…","busy");
-    load(true).then(function(n){setMsg(n?"새 기사 "+n+"건이 추가됐습니다.":"새로 올라온 기사가 없습니다. 새 기사는 매일 오후 6시에 추가됩니다.","done")})
-      .catch(function(){setMsg("확인하지 못했습니다. 인터넷 연결을 확인해 주세요.","warn")})
-      .then(function(){refreshBtn.disabled=false});
-  });
-  // 소유자 모드: 이 기기에서 주소 끝에 #admin 을 붙여 한 번 열면 '지금 새로 수집' 버튼이 보임 (#viewer 로 해제)
-  var runNow=document.getElementById("run-now"), watchUntil=0, watchFrom="";
+  // 소유자 모드(이 기기에서만): 맨 위 'HANAM GYOSAN' 글자를 3초 안에 5번 누르거나 주소 끝에 #admin 을 붙여 열면 켜짐 (#viewer 로 해제).
+  // 소유자 모드에서는 '새 기사 확인'이 그 시각 기준으로 새 수집을 시작한다. 다른 사람에게는 이미 모인 최신 기사만 불러온다.
+  var ADMIN=false, RUN_URL="https://claude.ai/artifact/FfEJ7HyTa4q3Wpj3CnBdov#run", RUN_KEY="gyosan-run", watchUntil=0, watchFrom="";
   function applyMode(){
-    var admin=false;
     try{
       if(location.hash==="#admin"){localStorage.setItem("gyosan-admin","1");history.replaceState(null,"",location.pathname)}
       else if(location.hash==="#viewer"){localStorage.removeItem("gyosan-admin");history.replaceState(null,"",location.pathname)}
-      admin=localStorage.getItem("gyosan-admin")==="1";
-    }catch(e){}
-    if(runNow)runNow.hidden=!admin;
+      ADMIN=localStorage.getItem("gyosan-admin")==="1";
+    }catch(e){ADMIN=false}
+    refreshBtn.title=ADMIN?"지금 시각 기준으로 새 기사를 찾아 가져옵니다":"";
   }
   applyMode();
   window.addEventListener("hashchange",applyMode);
-  // 홈 화면 앱에는 주소창이 없으므로: 맨 위 'HANAM GYOSAN' 글자를 3초 안에 5번 누르면 소유자 모드 켜기/끄기
   (function(){
     var eb=document.querySelector("header .eyebrow"), taps=[];
     if(!eb)return;
     eb.addEventListener("click",function(){
       var now=Date.now();taps=taps.filter(function(t){return now-t<3000});taps.push(now);
       if(taps.length<5)return;taps=[];
-      var on=false;try{on=localStorage.getItem("gyosan-admin")==="1";if(on)localStorage.removeItem("gyosan-admin");else localStorage.setItem("gyosan-admin","1")}catch(e){}
-      applyMode();setMsg(on?"소유자 모드를 껐습니다.":"소유자 모드를 켰습니다. '지금 새로 수집'으로 언제든 수집할 수 있습니다.","done");
+      try{if(localStorage.getItem("gyosan-admin")==="1")localStorage.removeItem("gyosan-admin");else localStorage.setItem("gyosan-admin","1")}catch(e){}
+      applyMode();setMsg(ADMIN?"소유자 모드를 켰습니다. 이제 '새 기사 확인'을 누르면 그 시각 기준으로 새로 수집합니다.":"소유자 모드를 껐습니다.","done");
     });
   })();
+  function runState(){try{return JSON.parse(localStorage.getItem(RUN_KEY)||"null")}catch(e){return null}}
+  function endRun(){watchUntil=0;try{localStorage.removeItem(RUN_KEY)}catch(e){}}
   function watchRun(){
     if(!watchUntil)return;
-    if(Date.now()>watchUntil){watchUntil=0;setMsg("아직 반영되지 않았습니다. 잠시 후 '새 기사 확인'을 눌러 보세요.","warn");return}
+    if(Date.now()>watchUntil){endRun();setMsg("아직 반영되지 않았습니다. 잠시 후 '새 기사 확인'을 다시 눌러 보세요.","warn");return}
     load(true).then(function(n){
-      if(meta&&meta.finishedAt&&meta.finishedAt!==watchFrom){watchUntil=0;setMsg(n?"수집 완료: 새 기사 "+n+"건이 추가됐습니다.":"수집 완료: 새로 올라온 기사가 없습니다.","done");return}
+      if(meta&&meta.finishedAt&&meta.finishedAt!==watchFrom){endRun();setMsg(n?"수집 완료: 새 기사 "+n+"건이 추가됐습니다.":"수집 완료: 새로 올라온 기사가 없습니다.","done");return}
       setTimeout(watchRun,30000);
     }).catch(function(){setTimeout(watchRun,30000)});
   }
-  if(runNow)runNow.addEventListener("click",function(){
-    watchFrom=(meta&&meta.finishedAt)||"";watchUntil=Date.now()+20*60*1000;
-    setMsg("Claude 페이지에서 새 기사 검색이 시작됩니다. 끝나면 이 화면에 자동으로 반영됩니다(보통 5~10분).","busy");
-    setTimeout(watchRun,60000);
+  function startWatch(st){
+    watchFrom=st.from||"";watchUntil=st.at+20*60*1000;
+    setMsg("지금 시각 기준으로 새 기사를 찾는 중입니다. 끝나면 이 화면에 자동으로 반영됩니다(보통 5~10분).","busy");
+    setTimeout(watchRun,30000);
+  }
+  refreshBtn.addEventListener("click",function(){
+    if(ADMIN){
+      var st=runState();
+      if(st&&Date.now()-st.at<20*60*1000){load(true).catch(function(){});if(!watchUntil)startWatch(st);else setMsg("이미 새 기사를 찾는 중입니다. 끝나면 자동으로 반영됩니다.","busy");return}
+      st={at:Date.now(),from:(meta&&meta.finishedAt)||""};
+      try{localStorage.setItem(RUN_KEY,JSON.stringify(st))}catch(e){}
+      window.open(RUN_URL,"_blank","noopener");
+      startWatch(st);
+      return;
+    }
+    refreshBtn.disabled=true;setMsg("새 기사를 확인하는 중…","busy");
+    load(true).then(function(n){setMsg(n?"새 기사 "+n+"건이 추가됐습니다.":"새로 올라온 기사가 없습니다. 새 기사는 매일 오후 6시에 추가됩니다.","done")})
+      .catch(function(){setMsg("확인하지 못했습니다. 인터넷 연결을 확인해 주세요.","warn")})
+      .then(function(){refreshBtn.disabled=false});
   });
+  (function(){var st=runState();if(ADMIN&&st&&Date.now()-st.at<20*60*1000)startWatch(st)})();
   document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")load(true).catch(function(){})});
   if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 })();
