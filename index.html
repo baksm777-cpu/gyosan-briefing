@@ -34,6 +34,8 @@
   --accent:#5fc3a2; --accent-soft:#1d3029; --new:#f08a55; --new-soft:#3a2418;
   --c-sale:#5fc3a2; --c-dev:#9ea2ec; --c-traffic:#e2a84c; --c-policy:#d593ba; --fav:#f2c230; color-scheme:dark}
 *{box-sizing:border-box}
+.refresh{text-decoration:none}
+.refresh.ghost{background:transparent;color:var(--accent)}
 html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 body{margin:0}
 [hidden]{display:none!important}
@@ -152,7 +154,7 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
     <div class="eyebrow">Hanam Gyosan · 3기 신도시</div>
     <h1>하남 교산 신도시 개발·분양 뉴스</h1>
     <div class="status" id="status"><span>기사를 불러오는 중…</span></div>
-    <div class="refresh-row" id="refresh-row"><button class="refresh" id="refresh" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>새 기사 확인</button><span class="refresh-msg" id="refresh-msg" role="status" aria-live="polite"></span></div>
+    <div class="refresh-row" id="refresh-row"><button class="refresh" id="refresh" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>새 기사 확인</button><a class="refresh ghost" id="run-now" hidden href="https://claude.ai/artifact/FfEJ7HyTa4q3Wpj3CnBdov#run" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>지금 새로 수집</a><span class="refresh-msg" id="refresh-msg" role="status" aria-live="polite"></span></div>
   </header>
 
   <section class="facts" aria-label="지구 개요">
@@ -312,6 +314,43 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
     load(true).then(function(n){setMsg(n?"새 기사 "+n+"건이 추가됐습니다.":"새로 올라온 기사가 없습니다. 새 기사는 매일 오후 6시에 추가됩니다.","done")})
       .catch(function(){setMsg("확인하지 못했습니다. 인터넷 연결을 확인해 주세요.","warn")})
       .then(function(){refreshBtn.disabled=false});
+  });
+  // 소유자 모드: 이 기기에서 주소 끝에 #admin 을 붙여 한 번 열면 '지금 새로 수집' 버튼이 보임 (#viewer 로 해제)
+  var runNow=document.getElementById("run-now"), watchUntil=0, watchFrom="";
+  function applyMode(){
+    var admin=false;
+    try{
+      if(location.hash==="#admin"){localStorage.setItem("gyosan-admin","1");history.replaceState(null,"",location.pathname)}
+      else if(location.hash==="#viewer"){localStorage.removeItem("gyosan-admin");history.replaceState(null,"",location.pathname)}
+      admin=localStorage.getItem("gyosan-admin")==="1";
+    }catch(e){}
+    if(runNow)runNow.hidden=!admin;
+  }
+  applyMode();
+  window.addEventListener("hashchange",applyMode);
+  // 홈 화면 앱에는 주소창이 없으므로: 맨 위 'HANAM GYOSAN' 글자를 3초 안에 5번 누르면 소유자 모드 켜기/끄기
+  (function(){
+    var eb=document.querySelector("header .eyebrow"), taps=[];
+    if(!eb)return;
+    eb.addEventListener("click",function(){
+      var now=Date.now();taps=taps.filter(function(t){return now-t<3000});taps.push(now);
+      if(taps.length<5)return;taps=[];
+      var on=false;try{on=localStorage.getItem("gyosan-admin")==="1";if(on)localStorage.removeItem("gyosan-admin");else localStorage.setItem("gyosan-admin","1")}catch(e){}
+      applyMode();setMsg(on?"소유자 모드를 껐습니다.":"소유자 모드를 켰습니다. '지금 새로 수집'으로 언제든 수집할 수 있습니다.","done");
+    });
+  })();
+  function watchRun(){
+    if(!watchUntil)return;
+    if(Date.now()>watchUntil){watchUntil=0;setMsg("아직 반영되지 않았습니다. 잠시 후 '새 기사 확인'을 눌러 보세요.","warn");return}
+    load(true).then(function(n){
+      if(meta&&meta.finishedAt&&meta.finishedAt!==watchFrom){watchUntil=0;setMsg(n?"수집 완료: 새 기사 "+n+"건이 추가됐습니다.":"수집 완료: 새로 올라온 기사가 없습니다.","done");return}
+      setTimeout(watchRun,30000);
+    }).catch(function(){setTimeout(watchRun,30000)});
+  }
+  if(runNow)runNow.addEventListener("click",function(){
+    watchFrom=(meta&&meta.finishedAt)||"";watchUntil=Date.now()+20*60*1000;
+    setMsg("Claude 페이지에서 새 기사 검색이 시작됩니다. 끝나면 이 화면에 자동으로 반영됩니다(보통 5~10분).","busy");
+    setTimeout(watchRun,60000);
   });
   document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")load(true).catch(function(){})});
   if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
