@@ -1,5 +1,5 @@
 {
- "builtAt": "2026-11-23T02:01:45Z",
+ "builtAt": "2026-11-23T04:11:01Z",
  "articles": [
   {
    "addedAt": "2026-11-19T09:00:00Z",
@@ -400,7 +400,7 @@
  ],
  "meta": {
   "lastRun": "2026-11-23",
-  "lastCount": 2,
-  "finishedAt": "2026-11-23T02:02:00Z"
+  "lastCount": 0,
+  "finishedAt": "2026-11-23T04:10:30Z"
  }
 }
