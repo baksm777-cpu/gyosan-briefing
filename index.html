@@ -165,7 +165,7 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
     <div class="eyebrow">Hanam Gyosan · 3기 신도시</div>
     <h1>하남 교산 신도시 개발·분양 뉴스</h1>
     <div class="status" id="status"><span>기사를 불러오는 중…</span></div>
-    <div class="refresh-row" id="refresh-row"><button class="refresh" id="refresh" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>새 기사 확인</button><span class="refresh-msg" id="refresh-msg" role="status" aria-live="polite"></span></div>
+    <div class="refresh-row" id="refresh-row"><span class="refresh-msg" id="refresh-msg" role="status" aria-live="polite"></span></div>
   </header>
 
   <section class="facts" aria-label="지구 개요">
@@ -231,7 +231,7 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
   function saveFavs(){try{localStorage.setItem("gyosan-favs",JSON.stringify(Object.keys(favs)))}catch(e){}}
   var list=document.getElementById("list"), status=document.getElementById("status");
   var favCnt=document.getElementById("fav-cnt");
-  var refreshBtn=document.getElementById("refresh"), refreshMsg=document.getElementById("refresh-msg");
+  var refreshMsg=document.getElementById("refresh-msg");
   function setMsg(t,kind){refreshMsg.textContent=t||"";refreshMsg.dataset.kind=kind||""}
   function chanceLabel(c){return c>=70?["높음","hi"]:c>=40?["보통","mid"]:c>=15?["낮음","lo"]:["매우 낮음","vlo"]}
   function chanceHtml(r,s){
@@ -368,60 +368,7 @@ footer{margin-top:36px;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
   load(false).catch(function(){
     return fetch("data.json").then(function(r){return r.json()}).then(function(d){apply(d,false);setMsg("인터넷 연결이 없어 마지막으로 받은 기사를 보여 줍니다.","warn")});
   }).catch(function(){list.innerHTML='<div class="empty">기사를 불러오지 못했습니다. 인터넷 연결을 확인한 뒤 다시 열어 주세요.</div>'});
-  // 소유자 모드(이 기기에서만): 맨 위 'HANAM GYOSAN' 글자를 3초 안에 5번 누르거나 주소 끝에 #admin 을 붙여 열면 켜짐 (#viewer 로 해제).
-  // 소유자 모드에서는 '새 기사 확인'이 그 시각 기준으로 새 수집을 시작한다. 다른 사람에게는 이미 모인 최신 기사만 불러온다.
-  var ADMIN=false, RUN_URL="https://claude.ai/artifact/FfEJ7HyTa4q3Wpj3CnBdov#run", RUN_KEY="gyosan-run", watchUntil=0, watchFrom="";
-  function applyMode(){
-    try{
-      if(location.hash==="#admin"){localStorage.setItem("gyosan-admin","1");history.replaceState(null,"",location.pathname)}
-      else if(location.hash==="#viewer"){localStorage.removeItem("gyosan-admin");history.replaceState(null,"",location.pathname)}
-      ADMIN=localStorage.getItem("gyosan-admin")==="1";
-    }catch(e){ADMIN=false}
-    refreshBtn.title=ADMIN?"지금 시각 기준으로 새 기사를 찾아 가져옵니다":"";
-  }
-  applyMode();
-  window.addEventListener("hashchange",applyMode);
-  (function(){
-    var eb=document.querySelector("header .eyebrow"), taps=[];
-    if(!eb)return;
-    eb.addEventListener("click",function(){
-      var now=Date.now();taps=taps.filter(function(t){return now-t<3000});taps.push(now);
-      if(taps.length<5)return;taps=[];
-      try{if(localStorage.getItem("gyosan-admin")==="1")localStorage.removeItem("gyosan-admin");else localStorage.setItem("gyosan-admin","1")}catch(e){}
-      applyMode();setMsg(ADMIN?"소유자 모드를 켰습니다. 이제 '새 기사 확인'을 누르면 그 시각 기준으로 새로 수집합니다.":"소유자 모드를 껐습니다.","done");
-    });
-  })();
-  function runState(){try{return JSON.parse(localStorage.getItem(RUN_KEY)||"null")}catch(e){return null}}
-  function endRun(){watchUntil=0;try{localStorage.removeItem(RUN_KEY)}catch(e){}}
-  function watchRun(){
-    if(!watchUntil)return;
-    if(Date.now()>watchUntil){endRun();setMsg("아직 반영되지 않았습니다. 잠시 후 '새 기사 확인'을 다시 눌러 보세요.","warn");return}
-    load(true).then(function(n){
-      if(meta&&meta.finishedAt&&meta.finishedAt!==watchFrom){endRun();setMsg(n?"수집 완료: 새 기사 "+n+"건이 추가됐습니다.":"수집 완료: 새로 올라온 기사가 없습니다.","done");return}
-      setTimeout(watchRun,30000);
-    }).catch(function(){setTimeout(watchRun,30000)});
-  }
-  function startWatch(st){
-    watchFrom=st.from||"";watchUntil=st.at+20*60*1000;
-    setMsg("지금 시각 기준으로 새 기사를 찾는 중입니다. 끝나면 이 화면에 자동으로 반영됩니다(보통 5~10분).","busy");
-    setTimeout(watchRun,30000);
-  }
-  refreshBtn.addEventListener("click",function(){
-    if(ADMIN){
-      var st=runState();
-      if(st&&Date.now()-st.at<20*60*1000){load(true).catch(function(){});if(!watchUntil)startWatch(st);else setMsg("이미 새 기사를 찾는 중입니다. 끝나면 자동으로 반영됩니다.","busy");return}
-      st={at:Date.now(),from:(meta&&meta.finishedAt)||""};
-      try{localStorage.setItem(RUN_KEY,JSON.stringify(st))}catch(e){}
-      window.open(RUN_URL,"_blank","noopener");
-      startWatch(st);
-      return;
-    }
-    refreshBtn.disabled=true;setMsg("새 기사를 확인하는 중…","busy");
-    load(true).then(function(n){setMsg(n?"새 기사 "+n+"건이 추가됐습니다.":"새로 올라온 기사가 없습니다. 새 기사는 매일 오후 6시에 추가됩니다.","done")})
-      .catch(function(){setMsg("확인하지 못했습니다. 인터넷 연결을 확인해 주세요.","warn")})
-      .then(function(){refreshBtn.disabled=false});
-  });
-  (function(){var st=runState();if(ADMIN&&st&&Date.now()-st.at<20*60*1000)startWatch(st)})();
+  // 새 기사는 매일 오후 6시 자동 수집으로만 추가된다. 앱은 열 때마다(그리고 다시 화면에 돌아올 때마다) 최신 기사를 불러온다.
   document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")load(true).catch(function(){})});
   if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 })();
