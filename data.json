@@ -1,5 +1,5 @@
 {
- "builtAt": "2026-11-25T08:46:52Z",
+ "builtAt": "2026-11-26T07:44:32Z",
  "articles": [
   {
    "addedAt": "2026-11-19T09:00:00Z",
@@ -214,15 +214,50 @@
  "blocks": [
   {
    "block": "A1",
-   "note": "비공식 부동산 정보 사이트에만 일정이 있고 공식 공고는 확인되지 않음.",
-   "period": "확인 필요",
-   "periodNote": "2026.07 공고설 있었으나 미확인",
-   "sortKey": "9999-1",
-   "sources": [],
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "GH 시행 통합공공임대. (이전에 표기한 '뉴:홈 공공분양 공고설'은 근거가 약해 정정)",
+   "period": "미정",
+   "periodNote": "사업승인 완료 · 임대 모집 일정 미발표",
+   "sortKey": "9999-A01",
+   "sources": [
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
    "status": "미정",
-   "type": "공공분양 (뉴:홈)",
-   "updatedAt": "2026-11-19T01:10:00Z",
+   "type": "통합공공임대 (GH)",
+   "units": 723,
+   "updatedAt": "2026-11-26T01:00:00Z",
    "id": "A1"
+  },
+  {
+   "block": "A10",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "임대 · 일정 미발표",
+   "sortKey": "9999-A10",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "통합공공임대",
+   "units": 707,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A10"
   },
   {
    "block": "A11",
@@ -260,6 +295,210 @@
    "units": 511,
    "updatedAt": "2026-11-24T00:20:00Z",
    "id": "A11"
+  },
+  {
+   "block": "A12",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "국토부 사업승인 블록(보도에 따라 S-12로도 표기).",
+   "period": "미정",
+   "periodNote": "임대 · 2031.09 준공 목표",
+   "sortKey": "9999-A12",
+   "sources": [
+    {
+     "date": "",
+     "source": "뉴스투데이24",
+     "title": "국토부, 하남교산 S-4BL 등 총 10개 단지 사업 승인",
+     "url": "http://www.newstoday.or.kr/news/articleView.html?idxno=24284"
+    },
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "통합공공임대 (LH)",
+   "units": 788,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A12"
+  },
+  {
+   "block": "A13",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "주택사업승인 협의 중(보도)",
+   "sortKey": "9999-A13",
+   "sources": [
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양",
+   "units": 622,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A13"
+  },
+  {
+   "block": "A14",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "사업승인 완료 · 공고 일정 미발표",
+   "sortKey": "9999-A14",
+   "sources": [
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양 (나눔형, LH)",
+   "units": 1459,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A14"
+  },
+  {
+   "block": "A15",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "임대 · 2031.09 준공 목표",
+   "sortKey": "9999-A15",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "통합공공임대",
+   "units": 915,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A15"
+  },
+  {
+   "block": "A16",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "임대 · 2034.08 준공 목표",
+   "sortKey": "9999-A16",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "통합공공임대",
+   "units": 1146,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A16"
+  },
+  {
+   "block": "A17",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "설계공모 단계 · 일정 미발표",
+   "sortKey": "9999-A17",
+   "sources": [
+    {
+     "date": "",
+     "source": "하남일보",
+     "title": "교산, A6‧17‧21 3개 블록 1,013가구 공급",
+     "url": "http://www.hanamilbo.net/news/articleView.html?idxno=11091"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "통합공공임대 + 공공분양 (GH)",
+   "units": 398,
+   "unitsNote": "통합공공임대 100 · 공공분양 298",
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A17"
+  },
+  {
+   "block": "A18",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "사업승인 완료 · 공고 일정 미발표",
+   "sortKey": "9999-A18",
+   "sources": [
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양 (나눔형, LH)",
+   "units": 664,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A18"
+  },
+  {
+   "block": "A19",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "사업승인 완료 · 공고 일정 미발표",
+   "sortKey": "9999-A19",
+   "sources": [
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양 (나눔형, LH)",
+   "units": 543,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A19"
   },
   {
    "block": "A2",
@@ -320,6 +559,182 @@
    "id": "A20"
   },
   {
+   "block": "A21",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "2025년 원주민 재정착위원회가 이주자택지 전환을 요구해 기본설계공모가 중단됨.",
+   "period": "미정",
+   "periodNote": "설계공모 중단 · 일정 불확실",
+   "sortKey": "9999-A21",
+   "sources": [
+    {
+     "date": "",
+     "source": "하남타임즈",
+     "title": "하남교산 A21블록 기본설계공모 전면 중단",
+     "url": "http://www.hanamtimes.com/news/articleView.html?idxno=12066"
+    },
+    {
+     "date": "",
+     "source": "하남일보",
+     "title": "교산, A6‧17‧21 3개 블록 1,013가구 공급",
+     "url": "http://www.hanamilbo.net/news/articleView.html?idxno=11091"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양 (GH)",
+   "units": 347,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A21"
+  },
+  {
+   "block": "A3",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "2026년 4월 경기도 사업계획 승인. 전용 31~59㎡, 이 중 100세대는 고령자복지주택.",
+   "period": "미정",
+   "periodNote": "임대 입주자 모집은 준공 무렵 · 일정 미발표",
+   "sortKey": "9999-A03",
+   "sources": [
+    {
+     "date": "2026-04-30",
+     "source": "뉴스핌",
+     "title": "GH, 하남교산 공공주택지구 A-3블록 통합공공임대주택 사업 '본궤도'",
+     "url": "https://www.newspim.com/news/view/20260430000869"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "통합공공임대 (GH)",
+   "units": 1100,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A3"
+  },
+  {
+   "block": "A4",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "임대 · 일정 미발표",
+   "sortKey": "9999-A04",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "통합공공임대",
+   "units": 1720,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A4"
+  },
+  {
+   "block": "A5",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "전용 46~59㎡. 사전청약 추정 분양가 59㎡ 약 4억5천만원. 2026년 8월 시의회가 전용모기지 원안 이행 촉구.",
+   "period": "본청약 대기",
+   "periodNote": "사전청약 2023.10 완료(452가구) · 본청약 시기 미발표",
+   "sortKey": "9000-A05",
+   "sources": [
+    {
+     "date": "2023-09",
+     "source": "시티뉴스",
+     "title": "하남, 교산 뉴:홈(나눔형) 452호 사전청약",
+     "url": "http://m.ctnews.co.kr/37207"
+    },
+    {
+     "date": "2026-08-07",
+     "source": "서울신문",
+     "title": "하남시의회, 교산 A5 뉴홈 전용모기지 원안 이행 촉구",
+     "url": "https://go.seoul.co.kr/news/newsView.php?id=20260807500041"
+    }
+   ],
+   "status": "예정",
+   "type": "공공분양 (나눔형 뉴:홈, LH)",
+   "units": 492,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A5"
+  },
+  {
+   "block": "A6",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "2025년 GH 기본설계공모. A6·A17·A21 합동 공모 취소 후 A6 단독 재공고.",
+   "period": "미정",
+   "periodNote": "설계공모 단계 · 2031년 착공·2034년 준공 목표(보도)",
+   "sortKey": "9999-A06",
+   "sources": [
+    {
+     "date": "",
+     "source": "하남일보",
+     "title": "교산, A6‧17‧21 3개 블록 1,013가구 공급",
+     "url": "http://www.hanamilbo.net/news/articleView.html?idxno=11091"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양 (GH)",
+   "units": 268,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A6"
+  },
+  {
+   "block": "A7",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "민간임대 · 일정 미발표",
+   "sortKey": "9999-A07",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "민간임대",
+   "units": 208,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A7"
+  },
+  {
+   "block": "A8",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "2025년 '하반기 공급' 보도가 있었으나 공고 확인 안 됨.",
+   "period": "미정",
+   "periodNote": "설계공모 단계 · 공고 없음",
+   "sortKey": "9999-A08",
+   "sources": [
+    {
+     "date": "",
+     "source": "하남경제신문",
+     "title": "하남교산 A8·B1블록 공공주택 설계공모 본격화…총 1,456세대",
+     "url": "https://www.hakyungnews.co.kr/news/articleView.html?idxno=5283"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양 + 통합공공임대",
+   "units": 763,
+   "unitsNote": "공공분양 572 · 통합공공임대 191",
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "A8"
+  },
+  {
    "block": "A9",
    "chance": 3,
    "chanceAt": "2026-11-25",
@@ -357,26 +772,265 @@
    "id": "A9"
   },
   {
-   "block": "D2",
-   "note": "주요 민간 블록으로 거론되나 공식 분양 일정 발표 없음.",
+   "block": "B1",
+   "catalog": "지구계획(4차) 39개 블록",
    "period": "미정",
-   "sortKey": "9999-2",
-   "sources": [],
+   "periodNote": "설계공모 단계 · 2034년 입주 계획(보도)",
+   "sortKey": "9999-B01",
+   "sources": [
+    {
+     "date": "",
+     "source": "하남경제신문",
+     "title": "하남교산 A8·B1블록 공공주택 설계공모 본격화…총 1,456세대",
+     "url": "https://www.hakyungnews.co.kr/news/articleView.html?idxno=5283"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
    "status": "미정",
-   "type": "민간분양",
-   "updatedAt": "2026-11-19T01:10:00Z",
-   "id": "D2"
+   "type": "공공분양 + 공공임대",
+   "units": 693,
+   "unitsNote": "공공분양 520 · 임대 173",
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "B1"
   },
   {
-   "block": "D5",
-   "note": "주요 민간 블록으로 거론되나 공식 분양 일정 발표 없음.",
+   "block": "B2",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "LH는 민간분양 용지 매각보다 자체 사업을 먼저 추진 중(2025 보도).",
    "period": "미정",
-   "sortKey": "9999-3",
-   "sources": [],
+   "periodNote": "민간 블록 · 용지 매각·분양 일정 미발표",
+   "sortKey": "9999-B02",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
    "status": "미정",
    "type": "민간분양",
-   "updatedAt": "2026-11-19T01:10:00Z",
-   "id": "D5"
+   "units": 281,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "B2"
+  },
+  {
+   "block": "B3",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "사업승인 완료(2023.12) · 공고 일정 미발표",
+   "sortKey": "9999-B03",
+   "sources": [
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양",
+   "units": 837,
+   "unitsNote": "나무위키 851세대",
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "B3"
+  },
+  {
+   "block": "B5",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "사업승인 완료(2023.12) · 2033.12 입주 계획(나무위키)",
+   "sortKey": "9999-B05",
+   "sources": [
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    },
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양",
+   "units": 457,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "B5"
+  },
+  {
+   "block": "C1",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "민간 블록 · 일정 미발표",
+   "sortKey": "9999-C01",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "민간분양",
+   "units": 605,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "C1"
+  },
+  {
+   "block": "C2",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "민간 블록 · 일정 미발표",
+   "sortKey": "9999-C02",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "민간분양",
+   "units": 786,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "C2"
+  },
+  {
+   "block": "C3",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "민간임대 · 일정 미발표",
+   "sortKey": "9999-C03",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "민간임대",
+   "units": 444,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "C3"
+  },
+  {
+   "block": "D1",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "일부 기사(2025)는 민간 블록을 D2·D5로 표기했으나 4차 지구계획 블록 목록에는 D1만 있음.",
+   "period": "미정",
+   "periodNote": "민간 블록 · 일정 미발표",
+   "sortKey": "9999-D01",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "민간분양",
+   "units": 106,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "D1"
+  },
+  {
+   "block": "S1",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "GH 민간참여 공공주택사업 추진(2025.10).",
+   "period": "미정",
+   "periodNote": "사업승인 완료 · 공고 일정 미발표",
+   "sortKey": "9999-S01",
+   "sources": [
+    {
+     "date": "2025-10-28",
+     "source": "대한경제",
+     "title": "GH, 하남교산 S1블록 민간참여사업 본격화",
+     "url": "https://www.dnews.co.kr/uhtml/view.jsp?idxno=202510281439004890417"
+    },
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양 (GH 민간참여)",
+   "units": 705,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "S1"
+  },
+  {
+   "block": "S10",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "사업승인 완료 · 2031.06 준공 목표",
+   "sortKey": "9999-S10",
+   "sources": [
+    {
+     "date": "",
+     "source": "뉴스투데이24",
+     "title": "국토부, 하남교산 S-4BL 등 총 10개 단지 사업 승인",
+     "url": "http://www.newstoday.or.kr/news/articleView.html?idxno=24284"
+    },
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    }
+   ],
+   "status": "미정",
+   "type": "분양전환 공공임대 (선택형, LH)",
+   "units": 541,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "S10"
+  },
+  {
+   "block": "S11",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "사업승인 완료 · 2031.03 준공 목표",
+   "sortKey": "9999-S11",
+   "sources": [
+    {
+     "date": "",
+     "source": "뉴스투데이24",
+     "title": "국토부, 하남교산 S-4BL 등 총 10개 단지 사업 승인",
+     "url": "http://www.newstoday.or.kr/news/articleView.html?idxno=24284"
+    },
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양 (LH 민간참여)",
+   "units": 1198,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "S11"
   },
   {
    "block": "S2",
@@ -407,6 +1061,138 @@
    "units": 414,
    "updatedAt": "2026-11-24T00:20:00Z",
    "id": "S2"
+  },
+  {
+   "block": "S4",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "사업승인 완료 · 일정 미발표",
+   "sortKey": "9999-S04",
+   "sources": [
+    {
+     "date": "",
+     "source": "뉴스투데이24",
+     "title": "국토부, 하남교산 S-4BL 등 총 10개 단지 사업 승인",
+     "url": "http://www.newstoday.or.kr/news/articleView.html?idxno=24284"
+    },
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    }
+   ],
+   "status": "미정",
+   "type": "분양전환 공공임대 (LH)",
+   "units": 1034,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "S4"
+  },
+  {
+   "block": "S5",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "4차 지구계획 블록 목록(S4~S11)에 포함. 유형·세대수 자료 확인 안 됨.",
+   "period": "미정",
+   "periodNote": "세부 정보 확인 안 됨",
+   "sortKey": "9999-S05",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "미확인",
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "S5"
+  },
+  {
+   "block": "S6",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "4차 지구계획 블록 목록(S4~S11)에 포함. 유형·세대수 자료 확인 안 됨.",
+   "period": "미정",
+   "periodNote": "세부 정보 확인 안 됨",
+   "sortKey": "9999-S06",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "미확인",
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "S6"
+  },
+  {
+   "block": "S7",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "유형·세대수 자료 확인 안 됨.",
+   "period": "미정",
+   "periodNote": "주택사업승인 협의 중(보도)",
+   "sortKey": "9999-S07",
+   "sources": [
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    }
+   ],
+   "status": "미정",
+   "type": "미확인",
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "S7"
+  },
+  {
+   "block": "S8",
+   "catalog": "지구계획(4차) 39개 블록",
+   "note": "4차 지구계획 블록 목록(S4~S11)에 포함. 유형·세대수 자료 확인 안 됨.",
+   "period": "미정",
+   "periodNote": "세부 정보 확인 안 됨",
+   "sortKey": "9999-S08",
+   "sources": [
+    {
+     "date": "",
+     "source": "나무위키(사용자 편집, 참고용)",
+     "title": "교산신도시 블록표",
+     "url": "https://namu.wiki/w/%EA%B5%90%EC%82%B0%EC%8B%A0%EB%8F%84%EC%8B%9C"
+    }
+   ],
+   "status": "미정",
+   "type": "미확인",
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "S8"
+  },
+  {
+   "block": "S9",
+   "catalog": "지구계획(4차) 39개 블록",
+   "period": "미정",
+   "periodNote": "사업승인 완료 · 공고 일정 미발표",
+   "sortKey": "9999-S09",
+   "sources": [
+    {
+     "date": "",
+     "source": "뉴스투데이24",
+     "title": "국토부, 하남교산 S-4BL 등 총 10개 단지 사업 승인",
+     "url": "http://www.newstoday.or.kr/news/articleView.html?idxno=24284"
+    },
+    {
+     "date": "",
+     "source": "시티뉴스",
+     "title": "하남, 교산 공동주택 41% 주택건설승인",
+     "url": "http://www.ctnews.co.kr/39834"
+    }
+   ],
+   "status": "미정",
+   "type": "공공분양 (나눔형, LH)",
+   "units": 1722,
+   "updatedAt": "2026-11-26T01:00:00Z",
+   "id": "S9"
   }
  ],
  "meta": {
